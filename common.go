@@ -1,10 +1,12 @@
 package common
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
 	"regexp"
+	"time"
 )
 
 func ValidBarcode8(s string) bool {
@@ -31,4 +33,8 @@ func ReverseProxy(proxyPort string, pathMap map[string]string) {
 
 	http.ListenAndServe(":"+proxyPort, nil)
 
+}
+
+func TimeNowString() string {
+	return fmt.Sprintf("%v", time.Unix(0, time.Now().UnixNano()/(int64(time.Millisecond)/int64(time.Nanosecond))*int64(time.Millisecond)))[:23]
 }
