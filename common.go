@@ -47,10 +47,17 @@ func EscapeLatex(s string) string {
 	s2 = strings.Replace(s2, "$", "\\$", -1)
 	s2 = strings.Replace(s2, "#", "\\#", -1)
 	s2 = strings.Replace(s2, "_", "\\_", -1)
-	s2 = strings.Replace(s2, "", "\\$", -1)
 	s2 = strings.Replace(s2, "{", "\\{", -1)
 	s2 = strings.Replace(s2, "}", "\\}", -1)
 	s2 = strings.Replace(s2, "~", "\\textasciitilde", -1)
 	return strings.Replace(s2, "^", "\\textasciicircum", -1)
 
+}
+
+func PadZero(s string) string {
+	if s[0] == '.' {
+		return "0" + s
+	} else {
+		return s
+	}
 }
