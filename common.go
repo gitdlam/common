@@ -87,21 +87,6 @@ type TmpRow7 struct {
 	Float7 float64
 }
 
-type TmpStr struct {
-	Idx   int
-	Value string
-}
-
-type TmpInt struct {
-	Idx   int
-	Value int64
-}
-
-type TmpFloat struct {
-	Idx   int
-	Value float64
-}
-
 func IndexOf(target int, intSlice []int) int {
 	for i, v := range intSlice {
 		if v == target {
