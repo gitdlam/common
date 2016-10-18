@@ -1,6 +1,7 @@
 package common
 
 import (
+	"encoding/base64"
 	"fmt"
 	"net/http"
 	"net/http/httputil"
@@ -192,4 +193,17 @@ func StringToRows7(data string, config []string) []TmpRow7 {
 		result = append(result, row)
 	}
 	return result
+}
+
+func Base64Encode(msg string) string {
+	return base64.StdEncoding.EncodeToString([]byte(msg))
+}
+
+func Base64Decode(encoded string) string {
+	decoded, err := base64.StdEncoding.DecodeString(encoded)
+	if err != nil {
+		return ""
+	}
+	return string(decoded)
+
 }
