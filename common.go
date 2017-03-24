@@ -2,7 +2,6 @@ package common
 
 import (
 	"encoding/base64"
-	"fmt"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -39,7 +38,8 @@ func ReverseProxy(proxyPort string, pathMap map[string]string) {
 }
 
 func TimeNowString() string {
-	return fmt.Sprintf("%v", time.Unix(0, time.Now().UnixNano()/(int64(time.Millisecond)/int64(time.Nanosecond))*int64(time.Millisecond)))[:23]
+	//return fmt.Sprintf("%v", time.Unix(0, time.Now().UnixNano()/(int64(time.Millisecond)/int64(time.Nanosecond))*int64(time.Millisecond)))[:23]
+	return time.Now().Format("2006-01-02 15:04:05.000")
 }
 
 func EscapeLatex(s string) string {
