@@ -210,8 +210,9 @@ func Base64Decode(encoded string) string {
 
 func ExcelDateNumber(s string) int {
 	var duration time.Duration
+
+	ref, _ := time.Parse("2006-01-02", "1970-01-01")
 	then, err := time.Parse("2006-01-02", s)
-	ref, err := time.Parse("2006-01-02", "1970-01-01")
 
 	if err == nil {
 		duration = then.Sub(ref)
