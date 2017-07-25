@@ -207,3 +207,15 @@ func Base64Decode(encoded string) string {
 	return string(decoded)
 
 }
+
+func ExcelDateNumber(s string) int {
+	var duration time.Duration
+	then, err := time.Parse("2006-01-02", s)
+	ref, err := time.Parse("2006-01-02", "1970-01-01")
+
+	if err == nil {
+		duration = then.Sub(ref)
+	}
+	return int(duration.Hours()/24) + 25569
+
+}
