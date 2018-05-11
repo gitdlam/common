@@ -2,6 +2,7 @@ package common
 
 import (
 	"encoding/base64"
+	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -9,6 +10,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	ole "github.com/go-ole/go-ole"
+	"github.com/go-ole/go-ole/oleutil"
 )
 
 func ValidBarcode8(s string) bool {
@@ -218,5 +222,32 @@ func ExcelDateNumber(s string) int {
 		duration = then.Sub(ref)
 	}
 	return int(duration.Hours()/24) + 25569
+
+}
+
+func ExcelRefresh(fileName string) {
+	ole.CoInitialize(0)
+	unknown, _ := oleutil.CreateObject("Excel.Application")
+	excel, _ := unknown.QueryInterface(ole.IID_IDispatch)
+	oleutil.PutProperty(excel, "Visible", true)
+
+	workbooks := oleutil.MustGetProperty(excel, "Workbooks").ToIDispatch()
+
+	workbook, err := oleutil.CallMethod(workbooks, "Open", fileName)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+	wb := workbook.ToIDispatch()
+	oleutil.CallMethod(excel, "CalculateFull")
+	oleutil.CallMethod(wb, "Close", true)
+
+	wb.Release()
+
+	workbooks.Release()
+
+	oleutil.CallMethod(excel, "Quit")
+	excel.Release()
+	ole.CoUninitialize()
 
 }
