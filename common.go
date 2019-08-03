@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -250,4 +251,14 @@ func ExcelRefresh(fileName string) {
 	excel.Release()
 	ole.CoUninitialize()
 
+}
+
+func WriteFile(name string, content string) error {
+	f, err := os.Create(name)
+	if err == nil {
+		defer f.Close()
+		f.WriteString(content)
+		f.Sync()
+	}
+	return err
 }
